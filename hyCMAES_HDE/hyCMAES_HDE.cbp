@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="hyCMAES_HDE" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/hyCMAES_HDE" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="EnergyPlus ModeloBase_PCM-14-10-2019.cfg 5" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/hyCMAES_HDE" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-march=prescott" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Linker>
+			<Add library="pthread" />
+		</Linker>
+		<Unit filename="../evalpthread.cxx" />
+		<Unit filename="../evalpthread.h" />
+		<Unit filename="../geometry.cxx" />
+		<Unit filename="../geometry.h" />
+		<Unit filename="../heuristic.cxx" />
+		<Unit filename="../heuristic.h" />
+		<Unit filename="../problem.cxx" />
+		<Unit filename="../problem.h" />
+		<Unit filename="main.cxx">
+			<Option weight="100" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
