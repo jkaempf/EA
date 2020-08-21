@@ -1036,7 +1036,7 @@ void ES::mutationNormallyDistributed(double K) {
             alleleprime = pop[i].getAllele()[j] + sigmaprime*normallyDistributedSPRNG_Ziggurat();
 
             // 1er check: dans les limites de la variable
-            alleleprime = min( alleleprime, problem->getMaxVector()[j] );
+            alleleprime = min( alleleprime, problem->getMaxVector()[j] - TINY );
             alleleprime = max( alleleprime, problem->getMinVector()[j] );
             pop[i].setAllele( j, alleleprime );
 
@@ -1493,7 +1493,7 @@ void CSA_ES::mutationNormallyDistributed() {
                         + sigmaF*(problem->getMaxVector()[j]-problem->getMinVector()[j])*pop[i].getArz(j);
 
             // 1er check: dans les limites de la variable - sauvegarde de alleleprime
-            alleleprime = min( alleleprime, problem->getMaxVector()[j] );
+            alleleprime = min( alleleprime, problem->getMaxVector()[j] - TINY );
             alleleprime = max( alleleprime, problem->getMinVector()[j] );
             pop[i].setAllele( j, alleleprime );
 
@@ -2103,7 +2103,7 @@ void CMA_ES::mutationNormallyDistributed() {
                 alleleprime = pop[i].getAllele(j) + sigmaF*BDZj;
 
                 // 1er check: dans les limites de la variable - sauvegarde de alleleprime
-                alleleprime = min( alleleprime, problem->getMaxVector()[j] );
+                alleleprime = min( alleleprime, problem->getMaxVector()[j] - TINY );
                 alleleprime = max( alleleprime, problem->getMinVector()[j] );
                 pop[i].setAllele( j, alleleprime );
 
