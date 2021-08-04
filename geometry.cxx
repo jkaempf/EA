@@ -1491,7 +1491,11 @@ double equationParser(string& eq, vector<double>& alleles)
 
          if ( eq[curr_index] == '+' ) { // addition
              // of what?
-             if ( eq[curr_index+1] == 'x' ) { // allele
+             if ( eq[curr_index+1] == 'f' && eq[curr_index+2] == 'x' ) { // allele
+                 result += floor(alleles[ to<unsigned int>(eq.substr(start+3,end-start-3)) ]);
+//                 cout << "Add: " << floor(alleles[ to<unsigned int>(eq.substr(start+3,end-start-3)) ]) << "\n" ;
+             }
+			 else if ( eq[curr_index+1] == 'x' ) { // allele
                  result += alleles[ to<unsigned int>(eq.substr(start+2,end-start-2)) ];
 //                 cout << "Add: " << alleles[ to<unsigned int>(eq.substr(start+2,end-start-2)) ];
              }

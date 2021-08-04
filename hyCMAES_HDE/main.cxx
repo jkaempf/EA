@@ -231,6 +231,10 @@ try{
 
         }
     }
+    catch (const exception& e) {
+        cout << "Exception: " << e.what() << endl;
+        return 1;
+    }
     catch (string msg) {
 
         cout << "Exception caught:" << endl;

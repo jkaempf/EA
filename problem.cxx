@@ -8631,8 +8631,8 @@ vector<double> EnergyPlus::evaluate(unsigned int id, vector<double> alleles) {
             //cout << "substr: " << tampon.substr(first+1,second-first-1) << "\tnumber: " << number << endl;
             //cout << "toString(alleles): " << toString(alleles[number]) << "x" << endl;
             if ( stringMap.find(number) != stringMap.end() )
-                 tampon.replace(first,second-first+1,stringMap.find(number)->second[static_cast<unsigned int>(trunc(alleles[number]-TINY))],0,stringMap.find(number)->second[static_cast<unsigned int>(trunc(alleles[number]-TINY))].length());
-            else tampon.replace(first,second-first+1,toString(alleles[number]),0,toString(alleles[number]).length());     			
+                 tampon.replace(first,second-first+1,stringMap.find(number)->second[static_cast<unsigned int>(trunc(alleles[number]))],0,stringMap.find(number)->second[static_cast<unsigned int>(trunc(alleles[number]))].length());
+            else tampon.replace(first,second-first+1,toString(alleles[number]),0,toString(alleles[number]).length());
             //cout << "\nTampon: " << tampon << endl;
             oss << tampon << endl;
         }
@@ -8651,7 +8651,7 @@ vector<double> EnergyPlus::evaluate(unsigned int id, vector<double> alleles) {
 	// cleans the directory
 	err = system(string("CleanEPlus2 " + file).c_str());
     if ( err != 0 ) throw ("Cannot clean directory.");
-	
+
     // read the output file
     // read configuration filename
     ifstream input2(string(file + ".eso").c_str(), ios::binary | ios::in );
@@ -8777,7 +8777,7 @@ CitySim::CitySim(string filename):Problem() {
             input1 >> tampon; // get the number of parameters
             // convert it to int
             unsigned int nParams = to<unsigned int>(tampon);
-//            cout << "Parameters number: " << nParams << endl;
+            cout << "Parameters number: " << nParams << endl;
 
             for (unsigned int i=0; i<nParams; i++) { // read the parameters
                 input1 >> tampon;
@@ -8793,6 +8793,7 @@ CitySim::CitySim(string filename):Problem() {
                 stepVector.push_back( to<double>(tampon) );
 
                 input1 >> tampon; // comments about the parameters
+
 
             }
         }
@@ -8952,11 +8953,21 @@ vector<double> CitySim::evaluate(unsigned int id, vector<double> alleles) {
 
         string secondMember = equalityVector[i].substr(equalityVector[i].find("=")+1); // from posEqual to the end of string
         newAlleles.push_back(equationParser(secondMember, alleles));
-
+//        cout << equationParser(secondMember, alleles) << endl;
     }
 
     // merge the alleles
     if (newAlleles.size() > 0 ) alleles.insert(alleles.end(), newAlleles.begin(), newAlleles.end());
+
+    // writing the alleles in a file
+    ostringstream ossNewAlleles;
+    ossNewAlleles << setprecision(12);
+    for (unsigned int i=0; i<newAlleles.size(); i++) {
+        ossNewAlleles << newAlleles[i] << "\n";
+        cout << newAlleles[i] << endl;
+    }
+    ossNewAlleles.flush();
+    writeResultsOver(string(file + "_equalities.all"),ossNewAlleles);
 
     // open template
     // tampon for saving the lines
@@ -8980,8 +8991,8 @@ vector<double> CitySim::evaluate(unsigned int id, vector<double> alleles) {
             //cout << "substr: " << tampon.substr(first+1,second-first-1) << "\tnumber: " << number << endl;
             //cout << "toString(alleles): " << toString(alleles[number]) << "x" << endl;
             if ( stringMap.find(number) != stringMap.end() )
-                 tampon.replace(first,second-first+1,stringMap.find(number)->second[static_cast<unsigned int>(trunc(alleles[number]-TINY))],0,stringMap.find(number)->second[static_cast<unsigned int>(trunc(alleles[number]-TINY))].length());
-            else tampon.replace(first,second-first+1,toString(alleles[number]),0,toString(alleles[number]).length());     
+                 tampon.replace(first,second-first+1,stringMap.find(number)->second[static_cast<unsigned int>(trunc(alleles[number]))],0,stringMap.find(number)->second[static_cast<unsigned int>(trunc(alleles[number]))].length());
+            else tampon.replace(first,second-first+1,toString(alleles[number]),0,toString(alleles[number]).length());
 			//cout << "\nTampon: " << tampon << endl;
             oss << tampon << endl;
         }
@@ -9028,7 +9039,22 @@ vector<double> CitySim::evaluate(unsigned int id, vector<double> alleles) {
 
     // destroys the files
     //remove(string(file + ".idf").c_str());
-    //remove(string(file + ".eso").c_str());
+    remove(string(file + "_LW.out").c_str());
+    remove(string(file + "_SW.out").c_str());
+    remove(string(file + "_VF.out").c_str());
+    remove(string(file + "_DL.out").c_str());
+    remove(string(file + "_TS.out").c_str());
+    remove(string(file + "_HC.out").c_str());
+    remove(string(file + "_CM.out").c_str());
+    remove(string(file + "_ET.out").c_str());
+    remove(string(file + "_TH.out").c_str());
+    remove(string(file + "_TS.out").c_str());
+    remove(string(file + "_Inertia.out").c_str());
+    remove(string(file + "_ClimaticData.out").c_str());
+    remove(string(file + "_SWv.out").c_str());
+    remove(string(file + ".gml").c_str());
+    remove(string(file + ".dxf").c_str());
+    remove(string(file + ".stl").c_str());
 
     // writing the fitness in a file
     ostringstream ossFitness;
@@ -9206,7 +9232,7 @@ RastriginConstrained::RastriginConstrained(unsigned int size, double stepSize):R
         maxVector.push_back( 5.12);
 
         minVector.push_back(-5.12);
-		
+
     }
 
 }

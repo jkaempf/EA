@@ -32,7 +32,16 @@ int main(int argc, char* argv[])
     Problem *leProb;
 
     // problem selection
-    if (argc == 5) {
+    if (argc == 4) {
+
+        if (string(argv[1]) == "EnergyPlus") leProb = new EnergyPlus(string(argv[2]));
+        else if (string(argv[1]) == "CitySim") leProb = new CitySim(string(argv[2]));
+        else {
+            cout << "Missing correct arguments" << endl;
+            return 1;
+        }
+    }
+    else if (argc == 5) {
         if      (atoi(argv[4]) == 1) leProb = new Problem1();
         else if (atoi(argv[4]) == 4) leProb = new NYCity();
         else if (atoi(argv[4]) == 6) leProb = new Problem6();
@@ -60,7 +69,7 @@ int main(int argc, char* argv[])
     else return 1;
 
     try {
-        readResultsInLine(argv[1], alleles);
+        readResultsInLine(argv[3], alleles);
     }
     catch (string msg) {
 
@@ -71,7 +80,7 @@ int main(int argc, char* argv[])
 
     try {
         cout << "Problem size: " << leProb->getSize() << "\t" << "Constraints: " << leProb->getnConstraints() << "\n" << "Individual not in field: " << leProb->notInField(alleles) << endl;
-        fitness = leProb->evaluate(atoi(argv[2]), alleles);
+        fitness = leProb->evaluate(0, alleles);
     }
     catch (string msg) {
 
@@ -87,11 +96,11 @@ int main(int argc, char* argv[])
 
     ostringstream ss;
     ss << setprecision(12);
-	
+
 	for (unsigned int i=0;i<fitness.size();++i)
 		ss << fitness[i] << endl;
 
-    writeResultsOver(argv[3], ss);
+    writeResultsOver(string(argv[3])+".out", ss);
 
     return 0;
 
