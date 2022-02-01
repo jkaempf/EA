@@ -36,7 +36,7 @@ Individual::Individual(Problem *problem, vector<double> alleles)
 
     this->problem = problem;
     simulated=false;              // not yet fitness evaluated
-    fitness.assign(1,-numeric_limits<double>::max());
+    fitness.assign(problem->getFitnessSize(),-numeric_limits<double>::max());
 
     this->alleles=alleles;        // initialisation of the vector alleles
 
@@ -136,13 +136,13 @@ bool operator<(Individual &a, Individual &b) { // Define less than relative to T
 }
 
 bool operator==(Individual &a, Individual &b) { // defines perfect equality between individuals
-	
+
 	bool equal = true;
 	for (size_t i=0;i<a.getFitnessSize();++i) {
 		equal &= ( a.getFitness(i) == b.getFitness(i) );
 	}
 	return equal;
-	
+
 }
 
 // *****************************************************************

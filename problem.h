@@ -32,6 +32,9 @@ protected:
     vector<double> maxVector, minVector;
     double minZ, maxZ;
 
+    // size of the fitness
+    size_t fitnessSize = 1;
+
 public:
 
     // constructeur et destructeur
@@ -61,6 +64,8 @@ public:
     unsigned int getnConstraints() { return nConstraints; };
 
     vector<double> getStepVector() { if (stepVector.size() == 0 && minVector.size() > 0) stepVector.assign(minVector.size(), stepSize); return stepVector; };
+
+    size_t getFitnessSize() { return fitnessSize; }
 
 };
 

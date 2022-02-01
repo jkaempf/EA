@@ -8845,9 +8845,9 @@ CitySim::CitySim(string filename):Problem() {
 
                 }
 
-                while (tampon.empty());
+                while (tampon.find('=')==string::npos);
 
-                //cout << "String: " << to<unsigned int>(tampon.substr(1,tampon.find("=")-1)) << "\tValue: " << tampon.substr(tampon.find("=")+1) << endl;
+                //cout << "i: " << i << "\tString: " << to<unsigned int>(tampon.substr(1,tampon.find("=")-1)) << "\nValue: " << tampon.substr(tampon.find("=")+1) << endl;
 
                 vector<string> stringi;
 
@@ -8871,31 +8871,23 @@ CitySim::CitySim(string filename):Problem() {
 
                 stringMap.insert( pair<unsigned int,vector<string> >(to<unsigned int>(tampon.substr(1,tampon.find("=")-1)), stringi) );
 
-
-
-//                cout << "Accessing elements..." << endl;
-
-//                for (unsigned int j=0; j < minVector.size(); j++) {
-
-//                    if ( stringMap.find(j) != stringMap.end() ) { cout << j << "\t";
-
-//                        for (unsigned int k=0; k<stringMap.find(j)->second.size(); k++) cout << stringMap.find(j)->second[k] << "\t";
-
-//                        cout << endl;
-
-//                    }
-
-//                }
-
             }
 
-
+//            cout << "Accessing elements..." << endl;
+//            for (unsigned int j=0; j < nStrings; j++) {
+//                if ( stringMap.find(j) != stringMap.end() ) { cout << j << "\t";
+//                    for (unsigned int k=0; k<stringMap.find(j)->second.size(); k++) cout << stringMap.find(j)->second[k] << "\t";
+//                    cout << endl;
+//                }
+//            }
 
         }
         else if ( tampon == "Outputs:") {
             input1 >> tampon; // get the number of parameters
             // convert it to int
             unsigned int nOutput = to<unsigned int>(tampon);
+            // copy the value to the fitnessSize
+            fitnessSize = nOutput;
 
             for (unsigned int i=0; i<nOutput; i++) { // read the parameters
                 input1 >> tampon;
