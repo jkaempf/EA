@@ -1,0 +1,17 @@
+#Total yearly energy demand & supply
+Heating (Wh):	1.78843e+09
+Cooling (Wh):	-1.06601e+07
+DHW (J):	4.18837e+08
+Fuel (J):	0
+ElectricConsumption (J):	9.66224e+11
+ElectricPVProduction (J):	0
+HeatingUnsatisfied (Wh):	5.69929e+06
+CoolingUnsatisfied (Wh):	0
+NRE (MJ):	0
+GWP (kgCO2):	0
+UBP (pts):	0
+MRT (°C):	-nan
+ITS (h):	0
+COMFA (h):	0
+DHNTotalThermalLosses (Wh):	3.12091e+08
+DHNElectricPump (J):	7.86356e+06
